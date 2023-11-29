@@ -4,10 +4,12 @@ Prepare for initial client-side rendering:
 
 - `page.tsx` -> `import { PageLayout } from "@/app/ClientPageLayout";`
 - `api/fetchData.ts` -> comment in initial demo code / comment out db access
+- add `use client` to the `ChartDemo.tsx`
 
 => Test that `HelloWorld.tsx` is rendering client side ...
 
-
+- Open Chrome and Firefox with the app
+- Open SQL Viewer on DB
 
 # React is Easy
 
@@ -60,7 +62,7 @@ What if I told you everything you know about Frontend Development is wrong?
 
 
 
-### Thou shalt build APIs
+# Thou shalt build APIs
 
 - Show DB, change Record in DB, Reload Frontend
 - Show `fetchData`  -> No API! Just a function call ...
@@ -78,7 +80,7 @@ Extend `HelloWorld.tsx`
 
 - Show Interactivity
 - Show rendering code is loaded in the client - add log statement
-- **Show passing pros === passing data from server to client**
+- **Show passing props === passing data from server to client**
 
 
 
@@ -124,6 +126,7 @@ let router = useRouter();
 
 async function handleSubmit() {
   await myAction(message);
+  router.refresh();
 }
 ```
 
@@ -143,16 +146,50 @@ revalidatePath("/");
 # Chart Demo
 
 Extend `HelloWorld.tsx`
+(keep `<FormDemo/>` and `<ListDemo/>` in order to get a client bundle `page.js`)
 
 ```
   <ChartDemo />
 ```
 
-- Schow `node_modules/d3` and `node_modules/date-fns` are in the `page.js` bundle.
+- Show `node_modules/d3` and `node_modules/date-fns` are in the `page.js` bundle.
   => Client Component
 
 
 
 Remove `'use client'` from `HelloWorld.tsx`
 
-- D3 and date-fns is not in the bundel any more!
+- D3 and date-fns is not in the bundle any more!
+
+
+
+Remove `<FormDemo/>` and `<ListDemo/>` from `HelloWorld.tsx` => the client bundle is gone completely!
+
+
+
+
+
+
+
+
+
+### DB Setup
+
+```sql
+select * from message;
+
+drop table message;
+create table message
+(
+    id   INTEGER primary key autoincrement ,
+    text TEXTd
+);
+
+delete from  message;
+
+insert into message(text) values ('Hello from Backend!');
+
+update message set text = 'Hello from DB!' where id = 1;
+update message set text = 'Hello from Backend!' where id = 1;
+```
+
