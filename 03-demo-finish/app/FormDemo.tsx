@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import { myAction } from "@/app/api/actions";
+import { useRouter } from "next/navigation";
 
 type FormProps = {
   initalMessage: string;
@@ -16,6 +16,8 @@ export function FormDemo({ initalMessage }: FormProps) {
   }
   async function handleSubmit() {
     console.log("Submitting message", message);
+    myAction(message);
+    // router.refresh();
   }
 
   console.log("Rendering FormDemo with message", message);

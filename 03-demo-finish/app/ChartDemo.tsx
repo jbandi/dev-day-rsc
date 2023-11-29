@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import * as d3 from "d3";
 import { format } from "date-fns";
